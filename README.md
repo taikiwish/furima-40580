@@ -42,13 +42,13 @@
 | Column             | Type       | Options                         |
 | ------------------ | ------     | -----------                     |
 | user               | references | null: false, foreign_key: true  |
-| item_id            | references | null: false                     |
+| item               | references | null: false, foreign_key: true  |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :item
-- has_one :addresse
+- has_one :address
 
 ## addresses テーブル
 
