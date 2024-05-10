@@ -30,38 +30,38 @@
 | area_id      | integer     | null: false                    |
 | date_id      | integer     | null: false                    |
 | price        | integer     | null: false                    |
-| user_id      | references  | null: false, foreign_key: true |
+| user         | references  | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :users
-- has_one :purchases
+- belongs_to :user
+- has_one :purchase
 
 ## purchases テーブル
 
-| Column             | Type       | Options     |
-| ------------------ | ------     | ----------- |
-| user_id            | references | null: false, foreign_key: true  |
-| item_id            | references | null: false |
+| Column             | Type       | Options                         |
+| ------------------ | ------     | -----------                     |
+| user               | references | null: false, foreign_key: true  |
+| item_id            | references | null: false                     |
 
 ### Association
 
-- belongs_to :users
-- belongs_to :items
-- has_one :addresses
+- belongs_to :user
+- belongs_to :item
+- has_one :addresse
 
 ## addresses テーブル
 
 | Column             | Type       | Options     |
 | ------------------ | ------     | ----------- |
 | zipcode            | string     | null: false |
-| prefecture         | string     | null: false, unique: true |
+| area_id            | integer    | null: false |
 | city               | string     | null: false |
 | number             | string     | null: false |
 | building           | string     |             |
 | phone              | string     | null: false |
-| purchase_id        | references | null: false, foreign_key: true  |
+| purchase           | references | null: false, foreign_key: true  |
 
 ### Association
 
-- belongs_to :purchases
+- belongs_to :purchase
