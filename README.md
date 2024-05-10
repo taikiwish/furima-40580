@@ -1,24 +1,67 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column             | Type    | Options     |
+| ------------------ | ------  | ----------- |
+| nickname           | string  | null: false |
+| email              | string  | null: false, unique: true |
+| password           | string  | null: false |
+| familyname         | string  | null: false |
+| firstname          | string  | null: false |
+| familyname_kana    | string  | null: false |
+| firstname_kana     | string  | null: false |
+| birth_year         | integer | null: false |
+| birth_month        | integer | null: false |
+| birth_day          | integer | null: false |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :items
+- has_one :purchases
 
-* Configuration
+## items テーブル
 
-* Database creation
+| Column       | Type       | Options                        |
+| ------       | ------     | -----------                    |
+| name         | string     | null: false                    |
+| description  | text       | null: false                    |
+| categoly     | string     | null: false                    |
+| condition    | string     | null: false                    |
+| price        | string     | null: false                    |
+| user_id      | references  | null: false, foreign_key: true |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+- belongs_to :users
+- has_one :purchases
 
-* Services (job queues, cache servers, search engines, etc.)
+## purchases テーブル
 
-* Deployment instructions
+| Column             | Type       | Options     |
+| ------------------ | ------     | ----------- |
+| fee                | string     | null: false |
+| area               | string     | null: false, unique: true |
+| date               | string     | null: false |
+| item_id            | references | null: false |
 
-* ...
+### Association
+
+- belongs_to :users
+- belongs_to :items
+- has_one :addresses
+
+## addresses テーブル
+
+| Column             | Type    | Options     |
+| ------------------ | ------  | ----------- |
+| zipcode            | integer | null: false |
+| prefecture         | string  | null: false, unique: true |
+| city               | string  | null: false |
+| number             | string  | null: false |
+| building           | string  |             |
+| phone              | integer | null: false |
+
+### Association
+
+- belongs_to :purchases
