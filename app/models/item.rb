@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   belongs_to :area
   belongs_to :deliverydate
   has_one_attached :image
-  has_many :purchases
+  # has_many :purchases
 
   validates :image,:name,:description,:category_id,:condition_id,:fee_id,:area_id,:deliverydate_id,:price,:user, presence: true
   validates :category_id, :condition_id, :fee_id, :area_id, :deliverydate_id, numericality: { other_than: 1 , message: "can't be blank"} 
