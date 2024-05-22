@@ -1,6 +1,7 @@
 class PurchasesController < ApplicationController
-  before_action :set_item, only: [:index, :create]
+  before_action :furima_find, only: [:index, :create]
   before_action :authenticate_user!
+  before_action :prevent_url, only: [:index, :create]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
@@ -25,7 +26,7 @@ class PurchasesController < ApplicationController
     params.require(:purchase_address).permit(:zipcode, :area_id, :city, :number, :building, :phone).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
-  def set_item
+  def furima_find
     @item = Item.find(params[:item_id])
   end
 
@@ -36,5 +37,11 @@ class PurchasesController < ApplicationController
       card: purchase_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def prevent_url
+    if @item.user_id != current_user.id || @item.purchase.present?
+      redirect_to root_path
+    end
   end
 end
