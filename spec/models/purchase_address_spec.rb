@@ -2,12 +2,16 @@ require 'rails_helper'
 
 RSpec.describe PurchaseAddress, type: :model do
   before do
-    @purchase_address = FactoryBot.build(:purchase_address)
+    @purchase_address = FactoryBot.build(:purchase_address, user_id: user.id)
   end
 
   describe '購入情報の保存' do
     context '購入情報が保存できるとき' do
       it '全項目が存在すれば保存できる' do
+        expect(@purchase_address).to be_valid
+      end
+      it 'buildingは空でも保存できること' do
+        @purchase_address.building = ''
         expect(@purchase_address).to be_valid
       end
     end
@@ -72,6 +76,11 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.item_id = nil
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include "Item can't be blank"
+      end
+      it "tokenが空では登録できない" do
+        @purchase_address.token = nil
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Token can't be blank")
       end
     end
   end
