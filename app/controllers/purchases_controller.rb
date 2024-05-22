@@ -13,7 +13,7 @@ class PurchasesController < ApplicationController
       redirect_to root_path
     else
       Rails.logger.debug(@purchase_address.errors.full_messages)
-      render :index
+      render :index, status: :unprocessable_entity
     end
   end
 
