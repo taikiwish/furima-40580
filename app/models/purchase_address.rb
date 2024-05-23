@@ -4,7 +4,7 @@ class PurchaseAddress
 
   with_options presence: true do
     validates :zipcode, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)" }
-    validates :area_id, numericality: { only_integer: true }
+    validates :area_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :city, :number, :phone, :user_id, :item_id, :token
     validates :phone, format: { with: /\A\d{10,11}\z/, message: "must be 10 or 11 digits" }
   end

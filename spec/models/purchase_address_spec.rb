@@ -36,9 +36,9 @@ RSpec.describe PurchaseAddress, type: :model do
         expect(@purchase_address.errors.full_messages).to include "Zipcode is invalid. Include hyphen(-)"
       end
       it 'area_idが「---」では保存できない' do
-        @purchase_address.area_id = '---'
+        @purchase_address.area_id = '1'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include "Area is not a number"
+        expect(@purchase_address.errors.full_messages).to include "Area can't be blank"
       end
       it 'cityが空では保存できない' do
         @purchase_address.city = ''
